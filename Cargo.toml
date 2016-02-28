@@ -1,0 +1,9 @@
+[package]
+name = "rust_RIBBIT"
+version = "0.0.1"
+authors = ["rjenkins <rjenkins@aceevo.com>"]
+
+[dependencies]
+log = "0.3.5"
+hyper = "0.7.2"
+byteorder = "*"
