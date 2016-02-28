@@ -1,7 +1,7 @@
-RIBBIT
-======
 
-::
+# RIBBIT
+
+```
 
                            '.  ckO,
                          .xKOXXkkNko                            ';
@@ -19,20 +19,18 @@ RIBBIT
              .    ...':clc::;,'',;lOKO000kxkOOxcllkdooOKxkKOkdc,,..
                    .,:;:ocooccllc::cc:;,',,'.....oo,.oc,'..
                             .......   ...'..    c'....
-
+```
 Rust RIBBIT client.
 
-Quick start
--------------------------
-
-.. code-block:: none 
+## Quick start
+```rust
 extern crate rust_RIBBIT;
 use rust_RIBBIT::client as client;
 
 fn frog_say() {
   let mut frog = client::RIBBITClient::new();
   let tip = frog.frog_tip();
-  assert!(tip.len() > 0 && tip.contains("FROG"));
   println!("{}", tip);
 }
+```
   
