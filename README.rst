@@ -20,7 +20,7 @@ RIBBIT
                    .,:;:ocooccllc::cc:;,',,'.....oo,.oc,'..
                             .......   ...'..    c'....
 
-Go RIBBIT client.
+Rust RIBBIT client.
 
 Quick start
 -------------------------
