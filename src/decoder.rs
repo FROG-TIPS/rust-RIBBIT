@@ -3,7 +3,7 @@ use std::io::Read;
 use std::io::Cursor;
 use std::collections::HashMap;
 use byteorder::{BigEndian, ReadBytesExt};
-  
+
   struct meta {
     class: u8,
     structured: bool,
@@ -18,7 +18,7 @@ use byteorder::{BigEndian, ReadBytesExt};
   pub fn decode(mut buffer: &mut Vec<u8>) -> HashMap<u64, String> {
     let mut cache = HashMap::new();
 
-    // Strip of and verify our first wrapper sequence 
+    // Strip of and verify our first wrapper sequence
     handle_sequence(&mut buffer);
 
     // for all remaining sequences
@@ -33,7 +33,7 @@ use byteorder::{BigEndian, ReadBytesExt};
   }
 
   // Nothing but the best for frog.tips clients, the following
-  // are artisanal handcrafted der decoding functions 
+  // are artisanal handcrafted der decoding functions
   fn handle_meta(byte:u8) -> meta {
     let c = byte >> 6;
     let s = byte & 0x20 == 0x20; // false if primative
@@ -51,10 +51,10 @@ use byteorder::{BigEndian, ReadBytesExt};
         buffer.remove(0);
         length = length - 1;
       }
-    } 
+    }
   }
 
-  fn handle_int(buffer: &mut Vec<u8>) -> u64 () {
+  fn handle_int(buffer: &mut Vec<u8>) -> u64 {
     let m = handle_meta(buffer.remove(0));
     assert!(m.tag == 2, "not an INTEGER tag");
     let mut first_length_byte = buffer.remove(0);
@@ -75,9 +75,9 @@ use byteorder::{BigEndian, ReadBytesExt};
     match int_buff.len() {
       1 => tip_id = int_buff.remove(0) as u64,
       2 => tip_id = Cursor::new(int_buff).read_u16::<BigEndian>().unwrap() as u64,
-      4 => tip_id = Cursor::new(int_buff).read_u32::<BigEndian>().unwrap() as u64, 
-      8 => tip_id = Cursor::new(int_buff).read_u64::<BigEndian>().unwrap(), 
-      _ => panic!("illegal length"), 
+      4 => tip_id = Cursor::new(int_buff).read_u32::<BigEndian>().unwrap() as u64,
+      8 => tip_id = Cursor::new(int_buff).read_u64::<BigEndian>().unwrap(),
+      _ => panic!("illegal length"),
     }
 
     return tip_id;
@@ -85,7 +85,7 @@ use byteorder::{BigEndian, ReadBytesExt};
 
   fn handle_utf8_string(buffer: &mut Vec<u8>) -> String {
     let m = handle_meta(buffer.remove(0));
-    assert!(m.tag == 12, "not an utf8String tag");  
+    assert!(m.tag == 12, "not an utf8String tag");
     let mut first_length_byte = buffer.remove(0);
     let mut length:u16 = 0;
     if first_length_byte < 128 {
@@ -112,7 +112,7 @@ use byteorder::{BigEndian, ReadBytesExt};
       length = length -1;
     }
 
-    let s = String::from_utf8(string_buff).unwrap();   
+    let s = String::from_utf8(string_buff).unwrap();
     return s;
   }
 
